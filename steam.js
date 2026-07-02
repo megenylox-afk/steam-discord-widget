@@ -55,6 +55,11 @@ function getTotalPlaytime(games) {
     return (minutes / 60).toFixed(1);
 
 }
+function minutesToHours(minutes) {
+
+    return (minutes / 60).toFixed(1);
+
+}
 function getTopGame(games) {
 
     let topGame = games[0];
@@ -76,6 +81,9 @@ async function getStats() {
     const recentGames = await getRecentGames();
     const player = await getPlayerSummary();
     const steamLevel = await getSteamLevel();
+    const topGame = getTopGame(games);
+
+const recentGame = recentGames.length > 0 ? recentGames[0] : null;
 
     return {
 
@@ -83,9 +91,15 @@ async function getStats() {
 
         totalPlaytime: getTotalPlaytime(games),
 
-        topGame: getTopGame(games),
+        topGame: topGame.name,
 
-        recentGame: recentGames.length > 0 ? recentGames[0] : null,
+topGameHours: minutesToHours(topGame.playtime_forever) + " h",
+
+recentGame: recentGame ? recentGame.name : "Нет",
+
+lastTwoWeeks: recentGame
+    ? minutesToHours(recentGame.playtime_2weeks) + " h"
+    : "0 h",
 
         accountCreated: player.timecreated,
 
