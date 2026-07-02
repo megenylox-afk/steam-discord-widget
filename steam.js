@@ -132,7 +132,7 @@ lastTwoWeeks: recentGame
     ? minutesToHours(recentGame.playtime_2weeks) + " h"
     : "0 h",
 
-        accountAge: getAccountAge(player.timecreated)
+        accountAge: getAccountAge(player.timecreated),
 
         steamLevel,
 
