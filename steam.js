@@ -91,6 +91,12 @@ async function getStats() {
 
         steamLevel,
 
+        avatar: player.avatarfull,
+
+nickname: player.personaname,
+
+profileUrl: player.profileurl,
+
     };
 
 }
