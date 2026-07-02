@@ -60,6 +60,37 @@ function minutesToHours(minutes) {
     return (minutes / 60).toFixed(1);
 
 }
+function getAccountAge(timestamp) {
+
+    const created = new Date(timestamp * 1000);
+    const now = new Date();
+
+    let years = now.getFullYear() - created.getFullYear();
+    let months = now.getMonth() - created.getMonth();
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    return `${years} years ${months} months`;
+
+}
+function getStatus(state) {
+
+    const statuses = {
+        0: "Offline",
+        1: "Online",
+        2: "Busy",
+        3: "Away",
+        4: "Snooze",
+        5: "Looking to trade",
+        6: "Looking to play"
+    };
+
+    return statuses[state] || "Unknown";
+
+}
 function getTopGame(games) {
 
     let topGame = games[0];
@@ -89,7 +120,7 @@ const recentGame = recentGames.length > 0 ? recentGames[0] : null;
 
         gamesOwned: games.length,
 
-        totalPlaytime: getTotalPlaytime(games),
+        totalPlaytime: getTotalPlaytime(games) + " h",
 
         topGame: topGame.name,
 
@@ -101,7 +132,7 @@ lastTwoWeeks: recentGame
     ? minutesToHours(recentGame.playtime_2weeks) + " h"
     : "0 h",
 
-        accountCreated: player.timecreated,
+        accountAge: getAccountAge(player.timecreated)
 
         steamLevel,
 
